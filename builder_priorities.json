@@ -1,0 +1,29 @@
+[
+  {
+    "model": "pricing.builderpriority",
+    "pk": 1,
+    "fields": {
+      "value": "speed",
+      "label": "Launch fast",
+      "multiplier": 1.00
+    }
+  },
+  {
+    "model": "pricing.builderpriority",
+    "pk": 2,
+    "fields": {
+      "value": "budget",
+      "label": "Stay on budget",
+      "multiplier": 1.00
+    }
+  },
+  {
+    "model": "pricing.builderpriority",
+    "pk": 3,
+    "fields": {
+      "value": "scale",
+      "label": "Scale & automation",
+      "multiplier": 1.00
+    }
+  }
+]

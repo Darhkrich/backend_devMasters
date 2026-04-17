@@ -1,0 +1,321 @@
+[
+  {
+    "model": "pricing.package",
+    "pk": "web-ready-starter",
+    "fields": {
+      "category": "websites",
+      "subcategory": "ready-made",
+      "tier": "starter",
+      "title": "Launch-ready presence",
+      "subtitle": "Perfect for small businesses, personal brands and freelancers who need a clean site fast.",
+      "billing_one_time": "299.00",
+      "billing_monthly": "39.00",
+      "features": [
+        "1 ready-made template from the gallery",
+        "Up to 5 pages (Home, About, Services, Blog list, Contact)",
+        "Brand styling (logo, colors, fonts)",
+        "Mobile-responsive layout",
+        "Domain connection & basic hosting setup",
+        "SSL security (HTTPS)",
+        "Basic SEO (titles, meta descriptions, image alts)",
+        "1 revision round",
+        "14 days email support after launch"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "Need extra pages or features? Add them in the \"Build your own\" section.",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "web-ready-pro",
+    "fields": {
+      "category": "websites",
+      "subcategory": "ready-made",
+      "tier": "pro",
+      "title": "Grow your business online",
+      "subtitle": "For businesses that need more pages, better conversions and ongoing support.",
+      "billing_one_time": "549.00",
+      "billing_monthly": "59.00",
+      "features": [
+        "All Starter features",
+        "Up to 10 pages (services, FAQ, case studies, etc.)",
+        "Conversion-focused layout & CTAs",
+        "Testimonials, FAQ and team sections included",
+        "Contact forms connected to your email",
+        "Google Analytics & Search Console setup",
+        "Basic integrations (WhatsApp, Messenger, email capture)",
+        "3 revision rounds",
+        "30 days priority support"
+      ],
+      "popular": true,
+      "best_value": false,
+      "footnote": "Perfect if you also plan to add AI automations or a client portal later.",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "web-ready-ecommerce",
+    "fields": {
+      "category": "websites",
+      "subcategory": "ready-made",
+      "tier": "ecommerce-plus",
+      "title": "Sell online quickly",
+      "subtitle": "Ready-made online store built on top of your chosen template with essential e-commerce features.",
+      "billing_one_time": "799.00",
+      "billing_monthly": "89.00",
+      "features": [
+        "All Pro Business features",
+        "Online store setup (up to 20 products)",
+        "Categories & product filters",
+        "Payment gateway integration",
+        "Basic shipping and tax configuration",
+        "Cart & checkout customization",
+        "E-commerce analytics basics",
+        "60 days post-launch support",
+        "Short training on managing products & orders"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "Ideal for small online stores, restaurants and service providers selling packages.",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "web-custom-starter",
+    "fields": {
+      "category": "websites",
+      "subcategory": "custom",
+      "tier": "starter",
+      "title": "Custom layout on your brand",
+      "subtitle": "Great when you want something different from a basic template but still budget-friendly.",
+      "billing_one_time": "499.00",
+      "billing_monthly": "59.00",
+      "features": [
+        "Custom homepage layout",
+        "Up to 5 pages with custom layout",
+        "Brand-focused visuals & sections",
+        "Base UX structure for growth",
+        "Mobile & tablet optimized",
+        "Domain, hosting & SSL setup",
+        "Basic analytics integration",
+        "2 revision rounds",
+        "30 days support"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "Ideal for early-stage brands who still want a unique feel.",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "web-custom-pro",
+    "fields": {
+      "category": "websites",
+      "subcategory": "custom",
+      "tier": "pro",
+      "title": "Custom site, built to convert",
+      "subtitle": "For brands that need more pages, more storytelling and more control over how they look online.",
+      "billing_one_time": "899.00",
+      "billing_monthly": "99.00",
+      "features": [
+        "All Custom Starter features",
+        "Up to 12 custom-designed pages",
+        "Custom components (pricing, timelines, feature grids)",
+        "Content structure & copy guidance",
+        "Advanced on-page SEO structure",
+        "Integrations (CRM, email marketing, chat)",
+        "Performance optimization (images, loading)",
+        "4 revision rounds",
+        "60–90 days priority support"
+      ],
+      "popular": true,
+      "best_value": true,
+      "footnote": "Great if you plan to add client dashboards or AI automation later.",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "web-custom-ecommerce",
+    "fields": {
+      "category": "websites",
+      "subcategory": "custom",
+      "tier": "ecommerce-plus",
+      "title": "Custom e-commerce experience",
+      "subtitle": "Custom store layout with product filtering, tailored product pages and advanced integrations.",
+      "billing_one_time": "1299.00",
+      "billing_monthly": "129.00",
+      "features": [
+        "All Custom Pro Business features",
+        "Custom product & category layouts",
+        "Advanced filters & search",
+        "Multiple payment gateways",
+        "Upsells & cross-sells sections",
+        "Email & automation-ready (abandoned cart, order emails)",
+        "60–90 days support & tuning",
+        "Training and handover documentation"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "Best for serious stores and digital product platforms.",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "app-starter",
+    "fields": {
+      "category": "apps",
+      "subcategory": "apps",
+      "tier": "starter",
+      "title": "Simple MVP or internal tool",
+      "subtitle": "Best for first versions, dashboards or internal tools with a focused feature set.",
+      "billing_one_time": "999.00",
+      "billing_monthly": "149.00",
+      "features": [
+        "1 main platform (web app or mobile app UI)",
+        "4–6 core screens / pages",
+        "Auth (login, signup, reset) if needed",
+        "Base database & CRUD features",
+        "Responsive layout (for web)",
+        "Bug fixes at launch",
+        "30 days support"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "app-pro",
+    "fields": {
+      "category": "apps",
+      "subcategory": "apps",
+      "tier": "pro",
+      "title": "Business-ready application",
+      "subtitle": "Multi-screen app for your customers or team, with integrations and analytics.",
+      "billing_one_time": "1899.00",
+      "billing_monthly": "229.00",
+      "features": [
+        "12–15 screens / pages",
+        "Multi-role flows (admin + users)",
+        "Payment or subscription integration",
+        "Integrations with external APIs (email, CRM, etc.)",
+        "Analytics & event tracking",
+        "Documentation / handover guide",
+        "60–90 days support"
+      ],
+      "popular": true,
+      "best_value": false,
+      "footnote": "",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "app-plus",
+    "fields": {
+      "category": "apps",
+      "subcategory": "apps",
+      "tier": "ecommerce-plus",
+      "title": "Store or multi-module platform",
+      "subtitle": "Full product or marketplace flows, admin dashboards and heavy integrations.",
+      "billing_one_time": "2699.00",
+      "billing_monthly": "299.00",
+      "features": [
+        "E-commerce or multi-module system",
+        "Admin / back-office dashboards",
+        "Multiple payment gateways",
+        "Notifications (email, SMS, push where possible)",
+        "Architecture guidance for scaling",
+        "Extended support & maintenance options"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "ai-starter",
+    "fields": {
+      "category": "ai",
+      "subcategory": "ai",
+      "tier": "starter",
+      "title": "Simple automations",
+      "subtitle": "Great first step into AI—light automations that remove repetitive tasks from your day.",
+      "billing_one_time": "399.00",
+      "billing_monthly": "49.00",
+      "features": [
+        "1–2 automation workflows",
+        "Connect 2–3 apps (forms, sheets, email, etc.)",
+        "AI-assisted replies or summaries",
+        "Simple log or dashboard",
+        "Short training session or video",
+        "14–30 days support"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "ai-pro",
+    "fields": {
+      "category": "ai",
+      "subcategory": "ai",
+      "tier": "pro",
+      "title": "Sales & support automations",
+      "subtitle": "Lead qualification, content drafts and AI chatbot for your website or messaging app.",
+      "billing_one_time": "899.00",
+      "billing_monthly": "99.00",
+      "features": [
+        "3–5 workflows (leads, follow-ups, content help)",
+        "AI chatbot for website or messaging (FAQ / lead bot)",
+        "Data enrichment for leads where possible",
+        "Monitoring & error alerts configuration",
+        "Documentation & usage guide",
+        "30–60 days optimization support"
+      ],
+      "popular": true,
+      "best_value": false,
+      "footnote": "",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "pricing.package",
+    "pk": "ai-ecommerce-plus",
+    "fields": {
+      "category": "ai",
+      "subcategory": "ai",
+      "tier": "ecommerce-plus",
+      "title": "AI for online stores",
+      "subtitle": "Automations focused on sales, retention and support for e-commerce brands.",
+      "billing_one_time": "1399.00",
+      "billing_monthly": "149.00",
+      "features": [
+        "AI support bot for order tracking & FAQs",
+        "AI product recommendations & upsell messages",
+        "AI-generated product descriptions (batch)",
+        "Integrations with your store platform & email tools",
+        "Simple analytics dashboard for automation performance",
+        "60–90 days performance tuning"
+      ],
+      "popular": false,
+      "best_value": false,
+      "footnote": "",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

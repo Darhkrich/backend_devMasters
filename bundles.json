@@ -1,0 +1,86 @@
+[
+  {
+    "model": "automation.bundle",
+    "pk": "bundle-ecommerce",
+    "fields": {
+      "title": "E-commerce Growth Bundle",
+      "description": "Complete automation for online stores.",
+      "tag": "Best Seller",
+      "items": [
+        "AI Chat Support",
+        "Abandoned Cart Recovery",
+        "Product Recommendation Engine",
+        "Inventory Management AI",
+        "Customer Review Analyzer"
+      ],
+      "features": [
+        "30% increase in conversions",
+        "40% reduction in support tickets",
+        "Automated inventory management",
+        "Personalized product recommendations"
+      ],
+      "ideal_for": ["Online retailers", "Dropshippers", "Product brands"],
+      "price_note": "one-time + $199/month",
+      "delivery_time": "4 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/bundle-ecommerce.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.bundle",
+    "pk": "bundle-service-business",
+    "fields": {
+      "title": "Service Business Bundle",
+      "description": "Automation for service-based companies.",
+      "tag": "Popular",
+      "items": [
+        "AI Appointment Scheduling",
+        "Lead Qualification Bot",
+        "Client Onboarding Automation",
+        "Invoice & Payment Reminders",
+        "Feedback Collection System"
+      ],
+      "features": [
+        "Automated client scheduling",
+        "Smart lead prioritization",
+        "Streamlined onboarding",
+        "Automated payment follow-ups"
+      ],
+      "ideal_for": ["Consultants", "Agencies", "Freelancers", "Coaches"],
+      "price_note": "one-time + $149/month",
+      "delivery_time": "3 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/bundle-service.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.bundle",
+    "pk": "bundle-content-creator",
+    "fields": {
+      "title": "Content Creator Bundle",
+      "description": "AI-powered content creation and distribution.",
+      "tag": "New",
+      "items": [
+        "AI Content Generation",
+        "Social Media Management",
+        "SEO Optimization AI",
+        "Content Calendar Automation",
+        "Performance Analytics"
+      ],
+      "features": [
+        "10x content output",
+        "Automated publishing",
+        "SEO optimization",
+        "Cross-platform distribution"
+      ],
+      "ideal_for": ["Bloggers", "Influencers", "Content teams", "Marketing agencies"],
+      "price_note": "monthly subscription",
+      "delivery_time": "2 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/bundle-content.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

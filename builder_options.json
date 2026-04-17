@@ -1,0 +1,266 @@
+[
+  {
+    "model": "pricing.builderoption",
+    "pk": 1,
+    "fields": {
+      "type": "web",
+      "option_type": "base",
+      "value": "none",
+      "label": "Just landing page (will use category base)",
+      "price": 0.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 2,
+    "fields": {
+      "type": "web",
+      "option_type": "base",
+      "value": "ready-starter",
+      "label": "Ready-made Starter website",
+      "price": 299.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 3,
+    "fields": {
+      "type": "web",
+      "option_type": "base",
+      "value": "ready-pro",
+      "label": "Ready-made Pro Business website",
+      "price": 549.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 4,
+    "fields": {
+      "type": "web",
+      "option_type": "base",
+      "value": "custom-pro",
+      "label": "Custom Pro Business website",
+      "price": 899.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 5,
+    "fields": {
+      "type": "web",
+      "option_type": "extra",
+      "value": "extra-pages",
+      "label": "Extra pages (up to +5)",
+      "price": 80.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 6,
+    "fields": {
+      "type": "web",
+      "option_type": "extra",
+      "value": "seo",
+      "label": "Advanced SEO setup",
+      "price": 120.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 7,
+    "fields": {
+      "type": "web",
+      "option_type": "extra",
+      "value": "content-writing",
+      "label": "Copywriting for core pages",
+      "price": 150.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 8,
+    "fields": {
+      "type": "web",
+      "option_type": "extra",
+      "value": "multi-language",
+      "label": "Multi-language support",
+      "price": 200.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 9,
+    "fields": {
+      "type": "web",
+      "option_type": "extra",
+      "value": "blog-setup",
+      "label": "Blog setup & design",
+      "price": 180.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 10,
+    "fields": {
+      "type": "app",
+      "option_type": "base",
+      "value": "none",
+      "label": "Just basic MVP module",
+      "price": 0.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 11,
+    "fields": {
+      "type": "app",
+      "option_type": "base",
+      "value": "starter",
+      "label": "Starter MVP / internal tool",
+      "price": 999.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 12,
+    "fields": {
+      "type": "app",
+      "option_type": "base",
+      "value": "pro",
+      "label": "Business-ready app",
+      "price": 1899.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 13,
+    "fields": {
+      "type": "app",
+      "option_type": "base",
+      "value": "scale",
+      "label": "Full platform / store",
+      "price": 2699.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 14,
+    "fields": {
+      "type": "app",
+      "option_type": "extra",
+      "value": "extra-screens",
+      "label": "Extra screens / modules",
+      "price": 250.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 15,
+    "fields": {
+      "type": "app",
+      "option_type": "extra",
+      "value": "payments",
+      "label": "Additional payment gateways",
+      "price": 220.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 16,
+    "fields": {
+      "type": "app",
+      "option_type": "extra",
+      "value": "integrations",
+      "label": "3rd party API integrations",
+      "price": 200.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 17,
+    "fields": {
+      "type": "app",
+      "option_type": "extra",
+      "value": "analytics",
+      "label": "Advanced analytics & events",
+      "price": 180.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 18,
+    "fields": {
+      "type": "ai",
+      "option_type": "base",
+      "value": "none",
+      "label": "Basic AI assistance only",
+      "price": 0.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 19,
+    "fields": {
+      "type": "ai",
+      "option_type": "base",
+      "value": "starter",
+      "label": "1–2 AI workflows",
+      "price": 399.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 20,
+    "fields": {
+      "type": "ai",
+      "option_type": "base",
+      "value": "pro",
+      "label": "Lead & content automations",
+      "price": 899.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 21,
+    "fields": {
+      "type": "ai",
+      "option_type": "base",
+      "value": "ecom",
+      "label": "E-commerce AI package",
+      "price": 1399.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 22,
+    "fields": {
+      "type": "ai",
+      "option_type": "extra",
+      "value": "more-workflows",
+      "label": "Extra workflows (+2)",
+      "price": 170.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 23,
+    "fields": {
+      "type": "ai",
+      "option_type": "extra",
+      "value": "chatbot",
+      "label": "Additional chatbot channel",
+      "price": 200.00
+    }
+  },
+  {
+    "model": "pricing.builderoption",
+    "pk": 24,
+    "fields": {
+      "type": "ai",
+      "option_type": "extra",
+      "value": "ai-training",
+      "label": "Team training session",
+      "price": 160.00
+    }
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "a1f3c8b2-1c4e-4b9a-8c2d-1a2b3c4d5e01",
+    "name": "Corporate Summit",
+    "shortName": "Corporate",
+    "category": ["business"],
+    "type": "ready",
+    "previewUrl": "https://example.com/corporate",
+    "image": "/templates/car-dealership.png",
+    "description": "Professional corporate layout with team hierarchy, timeline, and investor relations sections.",
+    "priceNote": "Corporate ready",
+    "tags": ["Investor relations", "Team grids"],
+    "icons": ["fas fa-building", "fas fa-users"],
+    "badge": "Ready-Made",
+    "badgeClass": "wc-template-tag--ready"
+  },
+  {
+    "id": "b2f4d9c3-2d5f-4c1a-9d3e-2b3c4d5e6f02",
+    "name": "Modern Agency",
+    "shortName": "Agency X",
+    "category": ["business", "landing"],
+    "type": "custom",
+    "previewUrl": "https://example.com/agency",
+    "image": "/templates/agency.png",
+    "description": "Bold typography with dark mode aesthetics for digital agencies.",
+    "priceNote": "Premium design",
+    "tags": ["Dark mode", "Smooth scroll"],
+    "icons": ["fas fa-moon", "fas fa-mouse"],
+    "badge": "Customizable",
+    "badgeClass": "wc-template-tag--custom"
+  },
+
+  {
+    "id": "1890cf1a-cc76-4bd4-bbd9-0ff1f7702370",
+    "name": "Law Firm Elite",
+    "shortName": "Legal Pro",
+    "category": ["business"],
+    "type": "ready",
+    "previewUrl": "https://example.com/law",
+    "image": "/templates/arch-one.png",
+    "description": "Trust-focused design with case studies and consultation booking.",
+    "priceNote": "Fast setup",
+    "tags": ["Case studies", "Booking"],
+    "icons": ["fas fa-gavel", "fas fa-calendar-check"],
+    "badge": "Ready-Made",
+    "badgeClass": "wc-template-tag--ready"
+  },
+  {
+    "id": "e3079b50-8fd2-45a3-ba28-bcf12d746fcb",
+    "name": "Construction Co.",
+    "shortName": "BuildIt",
+    "category": ["business"],
+    "type": "ready",
+    "previewUrl": "https://example.com/construction",
+    "image": "/templates/web-developer.png",
+    "description": "Heavy industry design with project galleries and certifications.",
+    "priceNote": "Industry standard",
+    "tags": ["Project gallery", "Certifications"],
+    "icons": ["fas fa-hard-hat", "fas fa-certificate"],
+    "badge": "Ready-Made",
+    "badgeClass": "wc-template-tag--ready"
+  },
+  {
+    "id": "01c5e04d-1198-4e8f-8d03-091c6e39f64e",
+    "name": "Ecommerce Pro",
+    "shortName": "ShopMax",
+    "category": ["ecommerce"],
+    "type": "ready",
+    "previewUrl": "https://example.com/ecommerce",
+    "image": "/templates/menswear.png",
+    "description": "Complete ecommerce solution with product pages, cart, and checkout.",
+    "priceNote": "Full ecommerce setup",
+    "tags": ["Cart", "Checkout", "Products"],
+    "icons": ["fas fa-shopping-cart", "fas fa-tags"],
+    "badge": "Ready-Made",
+    "badgeClass": "wc-template-tag--ready"
+  },
+  {
+    "id": "e33087f1-ca39-4884-a367-ddd85a3ec212",
+    "name": "Creative Portfolio",
+    "shortName": "Portfolio",
+    "category": ["portfolio"],
+    "type": "custom",
+    "previewUrl": "https://example.com/portfolio",
+    "image": "/templates/builder-one.png",
+    "description": "Minimal and elegant portfolio for creatives and freelancers.",
+    "priceNote": "Custom branding",
+    "tags": ["Gallery", "Animations"],
+    "icons": ["fas fa-image", "fas fa-paint-brush"],
+    "badge": "Customizable",
+    "badgeClass": "wc-template-tag--custom"
+  },
+  {
+    "id": "64258bdf-e7b6-41cc-b932-dce6317765e3",
+    "name": "Modern Blog",
+    "shortName": "BlogX",
+    "category": ["blog"],
+    "type": "ready",
+    "previewUrl": "https://example.com/blog",
+    "image": "/templates/photographer.png",
+    "description": "Clean blogging platform with categories, search, and comments.",
+    "priceNote": "SEO optimized",
+    "tags": ["SEO", "Comments"],
+    "icons": ["fas fa-pen", "fas fa-search"],
+    "badge": "Ready-Made",
+    "badgeClass": "wc-template-tag--ready"
+  },
+  {
+    "id": "2ccd9c99-2b11-48b8-96dc-42ef01b6f175",
+    "name": "Startup Landing",
+    "shortName": "LaunchPad",
+    "category": ["landing"],
+    "type": "custom",
+    "previewUrl": "https://example.com/startup",
+    "image": "/templates/restaurant-one.png",
+    "description": "High-conversion landing page for startups and SaaS.",
+    "priceNote": "Conversion focused",
+    "tags": ["CTA", "Funnels"],
+    "icons": ["fas fa-rocket", "fas fa-bullseye"],
+    "badge": "Customizable",
+    "badgeClass": "wc-template-tag--custom"
+  }
+]
+
+
+
+
+
+
+

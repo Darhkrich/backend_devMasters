@@ -1,0 +1,42 @@
+name: Security and Compliance
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: development
+      DEBUG: "True"
+      SECRET_KEY: ci-secret-key
+      AUDIT_LOG_SIGNING_KEY: ci-audit-signing-key
+      DB_PASSWORD: ci-password
+      DB_NAME: backend_db
+      DB_USER: postgres
+      DB_HOST: localhost
+      DB_PORT: "5432"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install project dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install bandit pip-audit semgrep
+      - name: Django system checks
+        run: python manage.py check
+      - name: Bandit SAST
+        run: bandit -r apps config manage.py -x tests,venv
+      - name: Dependency audit
+        run: pip-audit -r requirements.txt
+      - name: Semgrep
+        run: semgrep --config auto apps config

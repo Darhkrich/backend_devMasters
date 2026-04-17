@@ -1,0 +1,232 @@
+[
+  {
+    "model": "automation.automation",
+    "pk": "ai-chat-support",
+    "fields": {
+      "title": "AI Chat Support",
+      "description": "24/7 customer support chatbot for your website.",
+      "sector": "ecommerce",
+      "icon": "fas fa-comments",
+      "features": ["Answers FAQs", "Routes to human agents", "Collects contact info"],
+      "integration": ["Website", "Facebook", "WhatsApp"],
+      "use_cases": [
+        "Reduce customer support workload by 40%",
+        "Answer common questions instantly",
+        "Qualify leads before human intervention"
+      ],
+      "benefits": [
+        "24/7 availability",
+        "Multilingual support",
+        "Easy integration",
+        "Customizable responses"
+      ],
+      "price_note": "monthly setup",
+      "delivery_time": "2 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/chat-support.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "lead-qualification",
+    "fields": {
+      "title": "AI Lead Qualification",
+      "description": "Automatically score and prioritize incoming leads.",
+      "sector": "services",
+      "icon": "fas fa-filter",
+      "features": ["Score leads 1-10", "Auto-tagging", "CRM integration"],
+      "integration": ["CRM", "Forms", "Email"],
+      "use_cases": [
+        "Prioritize high-value leads",
+        "Automate follow-up sequences",
+        "Reduce manual sorting time"
+      ],
+      "benefits": [
+        "Increased conversion rates",
+        "Time savings",
+        "Better lead tracking",
+        "Custom scoring rules"
+      ],
+      "price_note": "one-time setup",
+      "delivery_time": "1 week",
+      "preview_url": "#",
+      "image": "/images/ai/lead-qual.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "email-automation",
+    "fields": {
+      "title": "Smart Email Automation",
+      "description": "Personalized email sequences based on user behavior.",
+      "sector": "ecommerce",
+      "icon": "fas fa-envelope",
+      "features": ["Behavior triggers", "Personalization", "A/B testing"],
+      "integration": ["Email platforms", "Website", "CRM"],
+      "use_cases": [
+        "Abandoned cart recovery",
+        "Welcome sequences",
+        "Re-engagement campaigns",
+        "Post-purchase follow-ups"
+      ],
+      "benefits": [
+        "Higher open rates",
+        "Automated personalization",
+        "Scalable campaigns",
+        "Detailed analytics"
+      ],
+      "price_note": "monthly + setup",
+      "delivery_time": "3 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/email-auto.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "content-generation",
+    "fields": {
+      "title": "AI Content Generation",
+      "description": "Automated content creation for blogs, social media, and ads.",
+      "sector": "education",
+      "icon": "fas fa-pen-nib",
+      "features": ["SEO optimization", "Brand voice", "Multi-platform"],
+      "integration": ["WordPress", "Social media", "CMS"],
+      "use_cases": [
+        "Blog post generation",
+        "Social media content",
+        "Product descriptions",
+        "Email newsletters"
+      ],
+      "benefits": [
+        "Consistent content output",
+        "SEO optimized",
+        "Time savings",
+        "Multi-language support"
+      ],
+      "price_note": "monthly package",
+      "delivery_time": "1 week",
+      "preview_url": "#",
+      "image": "/images/ai/content-gen.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "appointment-scheduling",
+    "fields": {
+      "title": "AI Appointment Scheduling",
+      "description": "Smart scheduling with automated reminders and rescheduling.",
+      "sector": "healthcare",
+      "icon": "fas fa-calendar-check",
+      "features": ["Calendar sync", "Auto-reminders", "Waitlist management"],
+      "integration": ["Calendars", "SMS", "Payment gateways"],
+      "use_cases": [
+        "Doctor appointments",
+        "Consultation booking",
+        "Service scheduling",
+        "Class registrations"
+      ],
+      "benefits": [
+        "Reduced no-shows",
+        "24/7 booking",
+        "Automated reminders",
+        "Calendar optimization"
+      ],
+      "price_note": "monthly subscription",
+      "delivery_time": "2 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/appointment.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "data-analysis",
+    "fields": {
+      "title": "AI Data Analysis",
+      "description": "Automated insights from your business data.",
+      "sector": "real-estate",
+      "icon": "fas fa-chart-line",
+      "features": ["Real-time dashboards", "Predictive analytics", "Custom reports"],
+      "integration": ["Databases", "APIs", "Business tools"],
+      "use_cases": [
+        "Sales forecasting",
+        "Customer behavior analysis",
+        "Market trends",
+        "Performance metrics"
+      ],
+      "benefits": [
+        "Actionable insights",
+        "Real-time monitoring",
+        "Predictive capabilities",
+        "Customizable reports"
+      ],
+      "price_note": "monthly + setup",
+      "delivery_time": "4 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/data-analysis.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "social-media-management",
+    "fields": {
+      "title": "AI Social Media Management",
+      "description": "Automated posting, engagement, and analytics.",
+      "sector": "services",
+      "icon": "fas fa-hashtag",
+      "features": ["Auto-posting", "Sentiment analysis", "Performance tracking"],
+      "integration": ["All major platforms", "Analytics tools", "Content libraries"],
+      "use_cases": [
+        "Content scheduling",
+        "Engagement automation",
+        "Competitor analysis",
+        "ROI tracking"
+      ],
+      "benefits": [
+        "Time savings",
+        "Improved engagement",
+        "Consistent posting",
+        "Detailed analytics"
+      ],
+      "price_note": "monthly package",
+      "delivery_time": "2 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/social-media.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "automation.automation",
+    "pk": "inventory-management",
+    "fields": {
+      "title": "AI Inventory Management",
+      "description": "Smart inventory tracking and reordering predictions.",
+      "sector": "ecommerce",
+      "icon": "fas fa-boxes",
+      "features": ["Demand forecasting", "Auto-reordering", "Stock alerts"],
+      "integration": ["Shopify", "WooCommerce", "Inventory systems"],
+      "use_cases": [
+        "Stock level optimization",
+        "Reorder predictions",
+        "Demand forecasting",
+        "Warehouse management"
+      ],
+      "benefits": [
+        "Reduced stockouts",
+        "Lower inventory costs",
+        "Automated ordering",
+        "Better cash flow"
+      ],
+      "price_note": "monthly setup",
+      "delivery_time": "3 weeks",
+      "preview_url": "#",
+      "image": "/images/ai/inventory.jpg",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]
