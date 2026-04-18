@@ -11,17 +11,23 @@ class Command(BaseCommand):
         email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
         password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
         if email and password:
-            if not User.objects.filter(email=email).exists():
-                # Create a username from the email (or use a fixed prefix)
-                username = email.split('@')[0]
-                User.objects.create_superuser(
-                    username=username,
-                    email=email,
-                    password=password,
-                    email_verified=True,
-                )
+            user, created = User.objects.get_or_create(email=email)
+            if created:
+                user.set_password(password)
+                user.is_superuser = True
+                user.is_staff = True
+                user.is_active = True
+                user.email_verified = True
+                user.save()
                 self.stdout.write(self.style.SUCCESS(f'Superuser {email} created.'))
             else:
-                self.stdout.write(f'Superuser {email} already exists.')
+                # Ensure existing user is superuser and staff
+                if not user.is_superuser or not user.is_staff:
+                    user.is_superuser = True
+                    user.is_staff = True
+                    user.save()
+                    self.stdout.write(f'Superuser {email} upgraded to staff/superuser.')
+                else:
+                    self.stdout.write(f'Superuser {email} already exists.')
         else:
             self.stdout.write(self.style.WARNING('Superuser creation skipped: missing environment variables.'))
