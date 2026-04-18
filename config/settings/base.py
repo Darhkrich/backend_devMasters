@@ -5,7 +5,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from config.env import env, env_bool, env_int, env_list
-
+import dj_database_url
+import os
 
 load_dotenv()
 
@@ -193,16 +194,12 @@ CACHES = {
     }
 }
 
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME", default="backend_db"),
-        "USER": env("DB_USER", default="postgres"),
-        "PASSWORD": env("DB_PASSWORD", default=""),
-        "HOST": env("DB_HOST", default="localhost"),
-        "PORT": env("DB_PORT", default="5432"),
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'), conn_max_age=600, ssl_require=False)
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
