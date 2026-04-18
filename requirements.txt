@@ -19,7 +19,7 @@ djangorestframework_simplejwt==5.5.1
 drf-spectacular==0.29.0
 factory_boy==3.3.3
 Faker==40.8.0
-frozenlist==1.8.0
+frozenlist==1.8.0F
 geoip2==5.2.0
 gunicorn==25.3.0
 idna==3.11
@@ -54,4 +54,3 @@ urllib3==2.6.3
 webencodings==0.5.1
 whitenoise==6.12.0
 yarl==1.23.0
-gunicorn==22.0.0
