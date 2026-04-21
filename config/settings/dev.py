@@ -19,3 +19,5 @@ CACHES = {  # noqa: F405
     }
 }
 TASK_QUEUE_MODE = "sync"
+
+ROOT_URLCONF = 'config.urls'
