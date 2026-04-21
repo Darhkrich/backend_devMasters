@@ -5,7 +5,7 @@ import os
 User = get_user_model()
 
 class Command(BaseCommand):
-    help = 'Ensures a superuser exists with correct flags'
+    help = 'Ensure a superuser exists based on environment variables'
 
     def handle(self, *args, **options):
         email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
@@ -15,11 +15,21 @@ class Command(BaseCommand):
             return
 
         user, created = User.objects.get_or_create(email=email)
-        if created or not user.check_password(password):
+        if created:
             user.set_password(password)
-        user.is_superuser = True
-        user.is_staff = True      # Required for admin access
-        user.is_active = True
-        user.email_verified = True  # Required by your login logic
-        user.save()
-        self.stdout.write(self.style.SUCCESS(f'Superuser {email} ensured (created={created}).'))
+            user.is_superuser = True
+            user.is_staff = True
+            user.is_active = True
+            user.email_verified = True
+            user.save()
+            self.stdout.write(self.style.SUCCESS(f'Superuser {email} created.'))
+        else:
+            # Ensure existing user has required flags
+            if not user.is_superuser or not user.is_staff or not user.email_verified:
+                user.is_superuser = True
+                user.is_staff = True
+                user.email_verified = True
+                user.save()
+                self.stdout.write(f'Superuser {email} updated with correct flags.')
+            else:
+                self.stdout.write(f'Superuser {email} already exists and is correctly configured.')
