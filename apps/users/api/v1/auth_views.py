@@ -56,8 +56,10 @@ def _csrf_cookie_kwargs(max_age):
 def _auth_cookie_kwargs(max_age):
     return {
         "httponly": True,
-        "secure": not settings.DEBUG,
-        "samesite": "Lax",
+        "secure": getattr(settings, "AUTH_COOKIE_SECURE", not settings.DEBUG),
+        "samesite": getattr(settings, "AUTH_COOKIE_SAMESITE", "Lax"),
+        "domain": getattr(settings, "AUTH_COOKIE_DOMAIN", None),
+        "path": getattr(settings, "AUTH_COOKIE_PATH", "/"),
         "max_age": max_age,
     }
 
@@ -73,13 +75,29 @@ def _set_csrf_cookie(response, request, *, max_age):
         csrf_token,
         **_csrf_cookie_kwargs(max_age),
     )
+    response["X-CSRFToken"] = csrf_token
     return response
 
 
 def _clear_auth_cookies(response):
-    response.delete_cookie("access_token")
-    response.delete_cookie("refresh_token")
-    response.delete_cookie(settings.CSRF_COOKIE_NAME)
+    response.delete_cookie(
+        "access_token",
+        path=getattr(settings, "AUTH_COOKIE_PATH", "/"),
+        domain=getattr(settings, "AUTH_COOKIE_DOMAIN", None),
+        samesite=getattr(settings, "AUTH_COOKIE_SAMESITE", "Lax"),
+    )
+    response.delete_cookie(
+        "refresh_token",
+        path=getattr(settings, "AUTH_COOKIE_PATH", "/"),
+        domain=getattr(settings, "AUTH_COOKIE_DOMAIN", None),
+        samesite=getattr(settings, "AUTH_COOKIE_SAMESITE", "Lax"),
+    )
+    response.delete_cookie(
+        settings.CSRF_COOKIE_NAME,
+        path=settings.CSRF_COOKIE_PATH,
+        domain=settings.CSRF_COOKIE_DOMAIN,
+        samesite=settings.CSRF_COOKIE_SAMESITE,
+    )
     return response
 
 

@@ -34,13 +34,29 @@ def set_csrf_cookie(response, request):
         httponly=settings.CSRF_COOKIE_HTTPONLY,
         samesite=settings.CSRF_COOKIE_SAMESITE,
     )
+    response["X-CSRFToken"] = csrf_token
     return response
 
 
 def clear_auth_cookies(response):
-    response.delete_cookie("access_token")
-    response.delete_cookie("refresh_token")
-    response.delete_cookie(settings.CSRF_COOKIE_NAME)
+    response.delete_cookie(
+        "access_token",
+        path=getattr(settings, "AUTH_COOKIE_PATH", "/"),
+        domain=getattr(settings, "AUTH_COOKIE_DOMAIN", None),
+        samesite=getattr(settings, "AUTH_COOKIE_SAMESITE", "Lax"),
+    )
+    response.delete_cookie(
+        "refresh_token",
+        path=getattr(settings, "AUTH_COOKIE_PATH", "/"),
+        domain=getattr(settings, "AUTH_COOKIE_DOMAIN", None),
+        samesite=getattr(settings, "AUTH_COOKIE_SAMESITE", "Lax"),
+    )
+    response.delete_cookie(
+        settings.CSRF_COOKIE_NAME,
+        path=settings.CSRF_COOKIE_PATH,
+        domain=settings.CSRF_COOKIE_DOMAIN,
+        samesite=settings.CSRF_COOKIE_SAMESITE,
+    )
     response.delete_cookie("boem_session")
     response.delete_cookie("boem_role")
     return response

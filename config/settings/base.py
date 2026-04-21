@@ -2,22 +2,33 @@ from datetime import timedelta
 import os
 from pathlib import Path
 
+import dj_database_url
 from dotenv import load_dotenv
 
 from config.env import env, env_bool, env_int, env_list
-from config.env import env, env_bool, env_int, env_list
-import dj_database_url
-import os
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 APP_ENV = env("APP_ENV", default="development").strip().lower()
-DEBUG = True
+DEBUG = env_bool("DEBUG", default=APP_ENV in {"development", "dev"})
 
 SECRET_KEY = env("SECRET_KEY", default="")
-ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", default="")
+ALLOWED_HOSTS = env_list(
+    "ALLOWED_HOSTS",
+    default="localhost,127.0.0.1" if DEBUG else "",
+)
 FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:3000")
+AUTH_COOKIE_DOMAIN = env("AUTH_COOKIE_DOMAIN", default="").strip() or None
+AUTH_COOKIE_PATH = env("AUTH_COOKIE_PATH", default="/").strip() or "/"
+AUTH_COOKIE_SAMESITE = env(
+    "AUTH_COOKIE_SAMESITE",
+    default="Lax" if DEBUG else "None",
+).strip().title()
+AUTH_COOKIE_SECURE = env_bool("AUTH_COOKIE_SECURE", default=not DEBUG)
+
+if AUTH_COOKIE_SAMESITE == "None":
+    AUTH_COOKIE_SECURE = True
 
 AUDIT_LOG_SIGNING_KEY = env("AUDIT_LOG_SIGNING_KEY", default=SECRET_KEY)
 AUDIT_LOG_RETENTION_DAYS = env_int("AUDIT_LOG_RETENTION_DAYS", 365)
@@ -44,18 +55,6 @@ REDIS_URL = env("REDIS_URL", default="")
 REDIS_CACHE_URL = env("REDIS_CACHE_URL", default=REDIS_URL)
 METRICS_AUTH_TOKEN = env("METRICS_AUTH_TOKEN", default="")
 WORKER_POLL_INTERVAL_SECONDS = env_int("WORKER_POLL_INTERVAL_SECONDS", 5)
-
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = False   # Required for Django admin
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SAMESITE = 'Lax'
-
-# Trust your Railway domain
-CSRF_TRUSTED_ORIGINS = ['https://backenddevmasters-production.up.railway.app']
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -112,19 +111,37 @@ ROOT_URLCONF = 'config.urls'
 
 CORS_ALLOWED_ORIGINS = env_list(
     "CORS_ALLOWED_ORIGINS",
-    default=f"{FRONTEND_URL},http://127.0.0.1:3000",
+    default=f"{FRONTEND_URL},http://localhost:3000,http://127.0.0.1:3000",
 )
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS.copy()
+CORS_EXPOSE_HEADERS = ["X-CSRFToken"]
+CSRF_TRUSTED_ORIGINS = env_list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=",".join(CORS_ALLOWED_ORIGINS),
+)
 
+SESSION_COOKIE_DOMAIN = env("SESSION_COOKIE_DOMAIN", default="").strip() or None
+SESSION_COOKIE_PATH = env("SESSION_COOKIE_PATH", default="/").strip() or "/"
+SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", default=AUTH_COOKIE_SECURE)
 SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = env(
+    "SESSION_COOKIE_SAMESITE",
+    default=AUTH_COOKIE_SAMESITE,
+).strip().title()
+CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN", default=AUTH_COOKIE_DOMAIN or "").strip() or None
+CSRF_COOKIE_PATH = env("CSRF_COOKIE_PATH", default="/").strip() or "/"
+CSRF_COOKIE_SECURE = env_bool("CSRF_COOKIE_SECURE", default=AUTH_COOKIE_SECURE)
 CSRF_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SAMESITE = "Lax"
-CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = env(
+    "CSRF_COOKIE_SAMESITE",
+    default=AUTH_COOKIE_SAMESITE,
+).strip().title()
 SECURE_REFERRER_POLICY = "same-origin"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 TEMPLATES = [
     {
