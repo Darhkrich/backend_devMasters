@@ -24,6 +24,17 @@ CHANNEL_LAYERS = {
         },
     }
 }
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False   # Required for Django admin
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# Trust your Railway domain
+CSRF_TRUSTED_ORIGINS = ['https://backenddevmasters-production.up.railway.app']
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",

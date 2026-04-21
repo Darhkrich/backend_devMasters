@@ -45,6 +45,18 @@ REDIS_CACHE_URL = env("REDIS_CACHE_URL", default=REDIS_URL)
 METRICS_AUTH_TOKEN = env("METRICS_AUTH_TOKEN", default="")
 WORKER_POLL_INTERVAL_SECONDS = env_int("WORKER_POLL_INTERVAL_SECONDS", 5)
 
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False   # Required for Django admin
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# Trust your Railway domain
+CSRF_TRUSTED_ORIGINS = ['https://backenddevmasters-production.up.railway.app']
+
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
