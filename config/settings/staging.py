@@ -3,7 +3,7 @@ from config.env import validate_environment
 from .base import *  # noqa: F403
 
 
-DEBUG = False
+DEBUG = True
 validate_environment(
     "staging",
     debug=DEBUG,
@@ -33,4 +33,4 @@ CACHES = {
 }
 TASK_QUEUE_MODE = env("TASK_QUEUE_MODE", default="worker")  # noqa: F405
 
-ROOT_URLCONF = 'config.urls'
+

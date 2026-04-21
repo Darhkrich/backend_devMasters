@@ -13,7 +13,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 APP_ENV = env("APP_ENV", default="development").strip().lower()
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = env("SECRET_KEY", default="")
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", default="")

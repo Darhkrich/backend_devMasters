@@ -3,7 +3,7 @@ from django.core.management.utils import get_random_secret_key
 from .base import *  # noqa: F403
 
 
-DEBUG = False
+DEBUG = True
 SECRET_KEY = SECRET_KEY or get_random_secret_key()  # noqa: F405
 ALLOWED_HOSTS = ALLOWED_HOSTS or ["localhost", "127.0.0.1"]  # noqa: F405
 CHANNEL_LAYERS = {  # noqa: F405
@@ -20,4 +20,4 @@ CACHES = {  # noqa: F405
 }
 TASK_QUEUE_MODE = "sync"
 
-ROOT_URLCONF = 'config.urls'
+

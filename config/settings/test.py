@@ -1,7 +1,7 @@
 from .base import *  # noqa: F403
 
 
-DEBUG = False
+DEBUG = True
 SECRET_KEY = SECRET_KEY or "test-secret-key"  # noqa: F405
 ALLOWED_HOSTS = ["testserver", "localhost", "127.0.0.1"]
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
