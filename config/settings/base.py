@@ -48,7 +48,10 @@ API_DEPRECATION_POLICY_URL = env(
     default="https://example.com/api-deprecation-policy",
 )
 API_CACHE_TTL_SECONDS = env_int("API_CACHE_TTL_SECONDS", 60)
-TASK_QUEUE_MODE = env("TASK_QUEUE_MODE", default="sync")
+TASK_QUEUE_MODE = env(
+    "TASK_QUEUE_MODE",
+    default="sync",
+)
 TASK_QUEUE_WORKERS = env_int("TASK_QUEUE_WORKERS", 4)
 REQUEST_SLOW_THRESHOLD_MS = env_int("REQUEST_SLOW_THRESHOLD_MS", 500)
 REDIS_URL = env("REDIS_URL", default="")
@@ -209,11 +212,24 @@ AUTH_USER_MODEL = "users.User"
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+if APP_ENV in {"staging", "production", "prod"}:
+    if REDIS_URL:
+        CHANNEL_LAYERS = {
+            "default": {
+                "BACKEND": "channels_redis.core.RedisChannelLayer",
+                "CONFIG": {
+                    "hosts": [REDIS_URL],
+                },
+            }
+        }
+    else:
+        CHANNEL_LAYERS = {}
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer",
+        }
     }
-}
 
 CACHES = {
     "default": {
