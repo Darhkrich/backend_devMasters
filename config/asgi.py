@@ -8,7 +8,7 @@ from django.core.asgi import get_asgi_application
 from apps.security.routing import websocket_urlpatterns
 from config.settings_loader import resolve_settings_module
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", resolve_settings_module())
+os.environ["DJANGO_SETTINGS_MODULE"] = resolve_settings_module()
 
 django_asgi_app = get_asgi_application()
 

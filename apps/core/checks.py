@@ -44,6 +44,13 @@ def enterprise_security_checks(app_configs, **kwargs):
                     id="core.E002",
                 )
             )
+        elif not channel_backend:
+            findings.append(
+                Warning(
+                    "REDIS_URL is not configured; real-time channel features are disabled in staging/production.",
+                    id="core.W005",
+                )
+            )
 
         if getattr(settings, "TASK_QUEUE_MODE", "sync") in {"sync", "thread"}:
             findings.append(

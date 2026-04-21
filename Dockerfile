@@ -2,7 +2,8 @@ FROM python:3.13-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    APP_ENV=production
+    APP_ENV=production \
+    DJANGO_SETTINGS_MODULE=config.settings.prod
 
 WORKDIR /app
 

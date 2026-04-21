@@ -25,6 +25,8 @@ if REDIS_URL:  # noqa: F405
             },
         }
     }
+else:
+    CHANNEL_LAYERS = {}
 
 if REDIS_URL:  # noqa: F405
     CACHES = {

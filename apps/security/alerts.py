@@ -15,6 +15,8 @@ class SecurityAlertService:
         )
 
         channel_layer = get_channel_layer()
+        if channel_layer is None:
+            return alert
 
         async_to_sync(channel_layer.group_send)(
             "security_events",

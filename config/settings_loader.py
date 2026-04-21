@@ -16,4 +16,15 @@ def default_settings_module():
 
 
 def resolve_settings_module():
-    return os.getenv("DJANGO_SETTINGS_MODULE") or default_settings_module()
+    explicit = (os.getenv("DJANGO_SETTINGS_MODULE") or "").strip()
+    app_env = os.getenv("APP_ENV", "development").strip().lower()
+
+    if explicit:
+        if app_env in {"staging", "production", "prod"} and explicit in {
+            "config.settings",
+            "config.settings.dev",
+        }:
+            return default_settings_module()
+        return explicit
+
+    return default_settings_module()
