@@ -96,8 +96,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
 ]
-
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = 'config.urls'
 
 CORS_ALLOWED_ORIGINS = env_list(
     "CORS_ALLOWED_ORIGINS",
