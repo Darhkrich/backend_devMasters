@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from config.env import env, env_bool, env_int, env_list
+from config.env import env, env_bool, env_int, env_list
 import dj_database_url
 import os
 
@@ -193,8 +194,6 @@ CACHES = {
         "TIMEOUT": API_CACHE_TTL_SECONDS,
     }
 }
-
-
 
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'), conn_max_age=600, ssl_require=False)

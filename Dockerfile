@@ -15,9 +15,15 @@ RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r re
 
 COPY . .
 
+# Collect static files (optional, but good for production)
+RUN python manage.py collectstatic --noinput
+
+# Create non-root user (optional but good practice)
 RUN useradd --create-home appuser && chown -R appuser:appuser /app
 USER appuser
 
-EXPOSE 8000
+# Expose the port that Railway will use
+EXPOSE $PORT
 
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "config.asgi:application"]
+# Run migrations on startup, then start Gunicorn
+CMD sh -c "python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
