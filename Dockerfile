@@ -16,13 +16,11 @@ RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r re
 
 COPY . .
 
-RUN python manage.py collectstatic --noinput
-
 RUN useradd --create-home appuser && chown -R appuser:appuser /app
 USER appuser
 
 # Use the PORT environment variable provided by Railway
 EXPOSE $PORT
 
-# Run migrations and then start Gunicorn
-CMD sh -c "python manage.py migrate && python manage.py ensure_superuser && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+# Run startup tasks after Railway injects runtime environment variables
+CMD sh -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py ensure_superuser && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
