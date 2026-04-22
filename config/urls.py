@@ -5,6 +5,7 @@ from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import TokenVerifyView
 
+from apps.core.api.v1.views import serve_media
 from apps.users.api.v1.views import CustomTokenObtainPairView, CustomTokenRefreshView
 
 
@@ -33,6 +34,7 @@ urlpatterns = [
     path("api/docs/swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     path("api/docs/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
      path("api/v1/notifications/", include("apps.notifications.urls")),  # or "apps.notifications.urls"
+     path("media/<path:path>", serve_media, name='serve_media'),
 
 ]
 

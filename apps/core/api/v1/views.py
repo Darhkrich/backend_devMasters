@@ -8,7 +8,10 @@ from rest_framework.views import APIView
 
 from apps.core.observability import metrics_snapshot
 from apps.core.permissions import InternalMetricsPermission
-
+from django.http import HttpResponse, Http404
+from django.conf import settings
+import os
+import mimetypes
 
 class APIVersionsView(APIView):
     permission_classes = [AllowAny]
@@ -72,3 +75,14 @@ class ReadinessView(APIView):
             },
             status=status_code,
         )
+
+
+def serve_media(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        mime_type, _ = mimetypes.guess_type(file_path)
+        with open(file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type=mime_type)
+            return response
+    raise Http404("File not found")
+
