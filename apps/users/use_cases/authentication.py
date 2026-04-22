@@ -1,3 +1,4 @@
+import logging
 import base64
 from io import BytesIO
 
@@ -9,11 +10,6 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth import get_user_model
-from apps.security.email_token import email_verification_token
 
 from apps.core.events import publish_event
 from apps.security.email_token import email_verification_token
@@ -34,7 +30,10 @@ from apps.security.utils import (
 )
 from apps.users.models import DeviceSession, LoginHistory
 from apps.users.serializers import UserSerializer
-from apps.users.services.emails import send_password_reset_email, send_verification_email
+from apps.users.services.emails import (
+    dispatch_password_reset_email,
+    dispatch_verification_email,
+)
 from apps.users.services.authentication import (
     create_device_session,
     create_runtime_session,
@@ -48,21 +47,29 @@ from apps.users.services.authentication import (
 
 
 User = get_user_model()
+logger = logging.getLogger(__name__)
 
 
 def register_user(serializer):
     user = serializer.save()
-    send_verification_email(user)
+    verification_email_sent = dispatch_verification_email(user)
+    message = (
+        "User registered successfully. Please verify your email."
+        if verification_email_sent
+        else (
+            "User registered successfully, but we could not send the verification "
+            "email right now. Please request another verification email before signing in."
+        )
+    )
     return (
         {
-            "message": "User registered successfully. Please verify your email.",
+            "message": message,
             "email_verification_required": True,
+            "verification_email_sent": verification_email_sent,
+            "email": user.email,
         },
         status.HTTP_201_CREATED,
     )
-
-
-User = get_user_model()
 
 def verify_email(uid, token):
     if not uid or not token:
@@ -84,17 +91,19 @@ def verify_email(uid, token):
     user.save(update_fields=["email_verified"])
 
     return {"message": "Email verified successfully"}, 200
-
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-
-
-
-
 def resend_verification_email(email):
     user = User.objects.filter(email=email).first()
+    verification_email_sent = False
     if user and not user.email_verified:
-        send_verification_email(user)
+        verification_email_sent = dispatch_verification_email(user)
+        if verification_email_sent:
+            message = "If the account exists, a verification email was sent."
+        else:
+            message = (
+                "If the account exists, we could not send the verification email "
+                "right now. Please try again shortly."
+            )
+        return {"message": message}, status.HTTP_200_OK
     return (
         {"message": "If the account exists, a verification email was sent."},
         status.HTTP_200_OK,
@@ -267,8 +276,12 @@ def request_password_reset(request, *, email):
         severity="high",
     )
     if user:
-        send_password_reset_email(user)
-        publish_event("user.password_reset_requested", payload={"user_id": user.id})
+        reset_email_sent = dispatch_password_reset_email(user)
+        if not reset_email_sent:
+            logger.warning(
+                "Password reset email could not be dispatched",
+                extra={"user_id": user.id, "email": user.email},
+            )
     return {"message": "If the email exists, a reset link was sent."}, status.HTTP_200_OK
 
 

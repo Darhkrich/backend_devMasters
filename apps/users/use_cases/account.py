@@ -9,7 +9,7 @@ from apps.users.services.authentication import (
     revoke_device_sessions,
     revoke_runtime_sessions,
 )
-from apps.users.services.emails import send_verification_email
+from apps.users.services.emails import dispatch_verification_email
 
 
 def delete_account(user):
@@ -46,8 +46,20 @@ def change_email(request, *, user, new_email):
         request=request,
         metadata={"new_email": new_email},
     )
-    send_verification_email(user)
-    return {"message": "Email updated. Please verify your new email."}, status.HTTP_200_OK
+    verification_email_sent = dispatch_verification_email(user)
+    message = (
+        "Email updated. Please verify your new email."
+        if verification_email_sent
+        else (
+            "Email updated, but we could not send the verification email right now. "
+            "Please request another verification email before signing in."
+        )
+    )
+    return {
+        "message": message,
+        "email_verification_required": True,
+        "verification_email_sent": verification_email_sent,
+    }, status.HTTP_200_OK
 
 
 def login_history_for_user(user):

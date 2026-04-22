@@ -30,6 +30,23 @@ Point the frontend at the deployed backend API:
 NEXT_PUBLIC_BOEM_API_BASE_URL=https://your-backend.up.railway.app/api/v1
 ```
 
+### Email configuration
+
+If you want registration, verification, and password-reset emails to work in Railway, also set:
+
+```env
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_USE_SSL=False
+EMAIL_HOST_USER=your-smtp-username
+EMAIL_HOST_PASSWORD=your-smtp-password-or-app-password
+DEFAULT_FROM_EMAIL=your-from-address
+```
+
+Verification links are built from `FRONTEND_URL`, so make sure that value points to your public frontend domain, not localhost.
+
 ### Deployment behavior
 
 The Docker image sets `APP_ENV=production` by default and runs:

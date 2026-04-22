@@ -43,6 +43,21 @@ def _send_email(*, subject, text_body, html_body, recipient_list):
         raise RuntimeError(f"Email backend accepted zero recipients for subject '{subject}'.")
 
 
+def _dispatch_user_email(task_name, *, user, purpose):
+    from apps.core.tasks import enqueue_task
+
+    try:
+        enqueue_task(task_name, user_id=user.id)
+        return True
+    except Exception:
+        logger.exception(
+            "Failed to dispatch %s email",
+            purpose,
+            extra={"user_id": user.id, "email": user.email},
+        )
+        return False
+
+
 def send_verification_email(user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = email_verification_token.make_token(user)
@@ -70,6 +85,14 @@ def send_verification_email(user):
     )
 
 
+def dispatch_verification_email(user):
+    return _dispatch_user_email(
+        "users.send_verification_email",
+        user=user,
+        purpose="verification",
+    )
+
+
 def send_password_reset_email(user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = password_reset_token.make_token(user)
@@ -92,4 +115,12 @@ def send_password_reset_email(user):
         text_body=text_body,
         html_body=html_body,
         recipient_list=[user.email],
+    )
+
+
+def dispatch_password_reset_email(user):
+    return _dispatch_user_email(
+        "users.send_password_reset_email",
+        user=user,
+        purpose="password reset",
     )
