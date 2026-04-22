@@ -8,13 +8,17 @@
       "category": ["business"],
       "type": "ready",
       "preview_url": "https://example.com/corporate",
-      "image": "/templates/car-dealership.png",
+      "image": "templates/car-dealership.png",
       "description": "Professional corporate layout with team hierarchy, timeline, and investor relations sections.",
+      "price": null,
       "price_note": "Corporate ready",
+      "badge": "Ready-Made",
+      "badge_class": "wc-template-tag--ready",
       "tags": ["Investor relations", "Team grids"],
       "icons": ["fas fa-building", "fas fa-users"],
-      "badge": "Ready-Made",
-      "badge_class": "wc-template-tag--ready"
+      "template_file": "",
+      "is_active": true,
+      "is_draft": false
     }
   },
   {
@@ -26,121 +30,18 @@
       "category": ["business", "landing"],
       "type": "custom",
       "preview_url": "https://example.com/agency",
-      "image": "/templates/agency.png",
+      "image": "templates/agency.png",
       "description": "Bold typography with dark mode aesthetics for digital agencies.",
+      "price": null,
       "price_note": "Premium design",
+      "badge": "Customizable",
+      "badge_class": "wc-template-tag--custom",
       "tags": ["Dark mode", "Smooth scroll"],
       "icons": ["fas fa-moon", "fas fa-mouse"],
-      "badge": "Customizable",
-      "badge_class": "wc-template-tag--custom"
-    }
-  },
-  {
-    "model": "templates.template",
-    "pk": "1890cf1a-cc76-4bd4-bbd9-0ff1f7702370",
-    "fields": {
-      "name": "Law Firm Elite",
-      "short_name": "Legal Pro",
-      "category": ["business"],
-      "type": "ready",
-      "preview_url": "https://example.com/law",
-      "image": "/templates/arch-one.png",
-      "description": "Trust-focused design with case studies and consultation booking.",
-      "price_note": "Fast setup",
-      "tags": ["Case studies", "Booking"],
-      "icons": ["fas fa-gavel", "fas fa-calendar-check"],
-      "badge": "Ready-Made",
-      "badge_class": "wc-template-tag--ready"
-    }
-  },
-  {
-    "model": "templates.template",
-    "pk": "e3079b50-8fd2-45a3-ba28-bcf12d746fcb",
-    "fields": {
-      "name": "Construction Co.",
-      "short_name": "BuildIt",
-      "category": ["business"],
-      "type": "ready",
-      "preview_url": "https://example.com/construction",
-      "image": "/templates/web-developer.png",
-      "description": "Heavy industry design with project galleries and certifications.",
-      "price_note": "Industry standard",
-      "tags": ["Project gallery", "Certifications"],
-      "icons": ["fas fa-hard-hat", "fas fa-certificate"],
-      "badge": "Ready-Made",
-      "badge_class": "wc-template-tag--ready"
-    }
-  },
-  {
-    "model": "templates.template",
-    "pk": "01c5e04d-1198-4e8f-8d03-091c6e39f64e",
-    "fields": {
-      "name": "Ecommerce Pro",
-      "short_name": "ShopMax",
-      "category": ["ecommerce"],
-      "type": "ready",
-      "preview_url": "https://example.com/ecommerce",
-      "image": "/templates/menswear.png",
-      "description": "Complete ecommerce solution with product pages, cart, and checkout.",
-      "price_note": "Full ecommerce setup",
-      "tags": ["Cart", "Checkout", "Products"],
-      "icons": ["fas fa-shopping-cart", "fas fa-tags"],
-      "badge": "Ready-Made",
-      "badge_class": "wc-template-tag--ready"
-    }
-  },
-  {
-    "model": "templates.template",
-    "pk": "e33087f1-ca39-4884-a367-ddd85a3ec212",
-    "fields": {
-      "name": "Creative Portfolio",
-      "short_name": "Portfolio",
-      "category": ["portfolio"],
-      "type": "custom",
-      "preview_url": "https://example.com/portfolio",
-      "image": "/templates/builder-one.png",
-      "description": "Minimal and elegant portfolio for creatives and freelancers.",
-      "price_note": "Custom branding",
-      "tags": ["Gallery", "Animations"],
-      "icons": ["fas fa-image", "fas fa-paint-brush"],
-      "badge": "Customizable",
-      "badge_class": "wc-template-tag--custom"
-    }
-  },
-  {
-    "model": "templates.template",
-    "pk": "64258bdf-e7b6-41cc-b932-dce6317765e3",
-    "fields": {
-      "name": "Modern Blog",
-      "short_name": "BlogX",
-      "category": ["blog"],
-      "type": "ready",
-      "preview_url": "https://example.com/blog",
-      "image": "/templates/photographer.png",
-      "description": "Clean blogging platform with categories, search, and comments.",
-      "price_note": "SEO optimized",
-      "tags": ["SEO", "Comments"],
-      "icons": ["fas fa-pen", "fas fa-search"],
-      "badge": "Ready-Made",
-      "badge_class": "wc-template-tag--ready"
-    }
-  },
-  {
-    "model": "templates.template",
-    "pk": "2ccd9c99-2b11-48b8-96dc-42ef01b6f175",
-    "fields": {
-      "name": "Startup Landing",
-      "short_name": "LaunchPad",
-      "category": ["landing"],
-      "type": "custom",
-      "preview_url": "https://example.com/startup",
-      "image": "/templates/restaurant-one.png",
-      "description": "High-conversion landing page for startups and SaaS.",
-      "price_note": "Conversion focused",
-      "tags": ["CTA", "Funnels"],
-      "icons": ["fas fa-rocket", "fas fa-bullseye"],
-      "badge": "Customizable",
-      "badge_class": "wc-template-tag--custom"
+      "template_file": "",
+      "is_active": true,
+      "is_draft": false
     }
   }
+ 
 ]
