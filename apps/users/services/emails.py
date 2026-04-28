@@ -5,9 +5,9 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from apps.security.tokens import password_reset_token
-from apps.security.email_token import email_verification_token
 
+from apps.security.email_token import email_verification_token
+from apps.security.tokens import password_reset_token
 
 
 logger = logging.getLogger(__name__)
@@ -43,15 +43,13 @@ def _send_email(*, subject, text_body, html_body, recipient_list):
         raise RuntimeError(f"Email backend accepted zero recipients for subject '{subject}'.")
 
 
-def _dispatch_user_email(task_name, *, user, purpose):
-    from apps.core.tasks import enqueue_task
-
+def _deliver_user_email(send_func, *, user, purpose):
     try:
-        enqueue_task(task_name, user_id=user.id)
+        send_func(user)
         return True
     except Exception:
         logger.exception(
-            "Failed to dispatch %s email",
+            "Failed to send %s email",
             purpose,
             extra={"user_id": user.id, "email": user.email},
         )
@@ -86,8 +84,8 @@ def send_verification_email(user):
 
 
 def dispatch_verification_email(user):
-    return _dispatch_user_email(
-        "users.send_verification_email",
+    return _deliver_user_email(
+        send_verification_email,
         user=user,
         purpose="verification",
     )
@@ -119,8 +117,8 @@ def send_password_reset_email(user):
 
 
 def dispatch_password_reset_email(user):
-    return _dispatch_user_email(
-        "users.send_password_reset_email",
+    return _deliver_user_email(
+        send_password_reset_email,
         user=user,
         purpose="password reset",
     )

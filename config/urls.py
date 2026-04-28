@@ -37,7 +37,7 @@ urlpatterns = [
      path("media/<path:path>", serve_media, name='serve_media'),
 
 ]
-
+ 
 if settings.DEBUG or getattr(settings, 'FORCE_SERVE_MEDIA', False):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
