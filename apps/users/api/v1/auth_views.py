@@ -108,13 +108,6 @@ def _set_auth_cookies(response, request, *, user, access, refresh):
     return _set_csrf_cookie(response, request, max_age=max_age)
 
 
-def _strip_token_payload(payload):
-    sanitized = dict(payload)
-    sanitized.pop("access", None)
-    sanitized.pop("refresh", None)
-    return sanitized
-
-
 def _enforce_csrf(request):
     check = CsrfViewMiddleware(lambda req: None)
     check.process_request(request)
@@ -197,7 +190,6 @@ class LoginView(APIView):
                 access=payload["access"],
                 refresh=payload["refresh"],
             )
-            response.data = _strip_token_payload(payload)
 
         return response
 
@@ -292,7 +284,6 @@ class Verify2FALoginView(APIView):
                 access=payload["access"],
                 refresh=payload["refresh"],
             )
-            response.data = _strip_token_payload(payload)
 
         return response
 
@@ -350,10 +341,15 @@ class CustomTokenRefreshView(TokenRefreshView):
             refresh_response=refresh_response,
         )
 
-        response = Response(
-            {"detail": "Session refreshed"} if status_code == status.HTTP_200_OK else payload,
-            status=status_code,
+        response_payload = (
+            {
+                "detail": "Session refreshed",
+                **payload,
+            }
+            if status_code == status.HTTP_200_OK
+            else payload
         )
+        response = Response(response_payload, status=status_code)
 
         if status_code != status.HTTP_200_OK:
             return _clear_auth_cookies(response)
