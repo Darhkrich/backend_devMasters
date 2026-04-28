@@ -38,7 +38,8 @@ def change_email(request, *, user, new_email):
         return {"error": "Email is already in use."}, status.HTTP_400_BAD_REQUEST
 
     user.email = new_email
-    user.email_verified = False
+    verification_required = user.requires_email_verification
+    user.email_verified = not verification_required
     user.save(update_fields=["email", "email_verified"])
     log_security_event(
         user=user,
@@ -46,18 +47,24 @@ def change_email(request, *, user, new_email):
         request=request,
         metadata={"new_email": new_email},
     )
-    verification_email_sent = dispatch_verification_email(user)
-    message = (
-        "Email updated. Please verify your new email."
-        if verification_email_sent
-        else (
-            "Email updated, but we could not send the verification email right now. "
-            "Please request another verification email before signing in."
+    verification_email_sent = False
+
+    if verification_required:
+        verification_email_sent = dispatch_verification_email(user)
+        message = (
+            "Email updated. Please verify your new email."
+            if verification_email_sent
+            else (
+                "Email updated, but we could not send the verification email right now. "
+                "Please request another verification email before signing in."
+            )
         )
-    )
+    else:
+        message = "Email updated successfully."
+
     return {
         "message": message,
-        "email_verification_required": True,
+        "email_verification_required": verification_required,
         "verification_email_sent": verification_email_sent,
     }, status.HTTP_200_OK
 

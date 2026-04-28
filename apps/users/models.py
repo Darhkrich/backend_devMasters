@@ -52,11 +52,17 @@ class User(AbstractUser, BaseModel):
 
     def __str__(self):
         return self.email
-    
+
+    @property
+    def requires_email_verification(self):
+        return bool(self.is_superuser or self.is_staff or self.role == "ADMIN")
+
     def can_login(self):
-        if self.is_superuser:
-            return True
-        return self.is_active and self.email_verified
+        if not self.is_active:
+            return False
+        if self.requires_email_verification and not self.email_verified:
+            return False
+        return True
 
     @property
     def can_manage_staff_workspace(self):

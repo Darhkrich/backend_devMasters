@@ -52,24 +52,34 @@ logger = logging.getLogger(__name__)
 
 def register_user(serializer):
     user = serializer.save()
-    verification_email_sent = dispatch_verification_email(user)
-    message = (
-        "User registered successfully. Please verify your email."
-        if verification_email_sent
-        else (
-            "User registered successfully, but we could not send the verification "
-            "email right now. Please request another verification email before signing in."
+    verification_email_sent = False
+
+    if user.requires_email_verification:
+        verification_email_sent = dispatch_verification_email(user)
+        message = (
+            "User registered successfully. Please verify your email."
+            if verification_email_sent
+            else (
+                "User registered successfully, but we could not send the verification "
+                "email right now. Please request another verification email before signing in."
+            )
         )
-    )
+    else:
+        if not user.email_verified:
+            user.email_verified = True
+            user.save(update_fields=["email_verified"])
+        message = "User registered successfully. You can now sign in."
+
     return (
         {
             "message": message,
-            "email_verification_required": True,
+            "email_verification_required": user.requires_email_verification,
             "verification_email_sent": verification_email_sent,
             "email": user.email,
         },
         status.HTTP_201_CREATED,
     )
+
 
 def verify_email(uid, token):
     if not uid or not token:
@@ -91,10 +101,12 @@ def verify_email(uid, token):
     user.save(update_fields=["email_verified"])
 
     return {"message": "Email verified successfully"}, 200
+
+
 def resend_verification_email(email):
     user = User.objects.filter(email=email).first()
     verification_email_sent = False
-    if user and not user.email_verified:
+    if user and user.requires_email_verification and not user.email_verified:
         verification_email_sent = dispatch_verification_email(user)
         if verification_email_sent:
             message = "If the account exists, a verification email was sent."
@@ -148,11 +160,6 @@ def _finalize_login(request, user):
     }, status.HTTP_200_OK
 
 
-def can_login(self):
-    if self.is_superuser:
-        return True
-    return self.is_active and getattr(self, "email_verified", True)
-
 def login_user(request, *, email, password):
     ip_address = get_client_ip(request) or "127.0.0.1"
     user_agent = request.META.get("HTTP_USER_AGENT", "")
@@ -169,11 +176,6 @@ def login_user(request, *, email, password):
             {"error": "Too many failed login attempts. Try again later."},
             status.HTTP_403_FORBIDDEN,
         )
-    
-
-    
-    
-    
 
     candidate = User.objects.filter(email=email).first()
     if candidate and candidate.account_locked_until and candidate.account_locked_until > timezone.now():
@@ -208,7 +210,7 @@ def login_user(request, *, email, password):
             status.HTTP_403_FORBIDDEN if locked else status.HTTP_401_UNAUTHORIZED,
         )
 
-    if not user.email_verified and not user.is_superuser:
+    if user.requires_email_verification and not user.email_verified:
         return (
             {
                 "error": "Please verify your email before logging in.",
@@ -220,17 +222,17 @@ def login_user(request, *, email, password):
     if not user.is_active:
         return {"error": "Account disabled"}, status.HTTP_403_FORBIDDEN
 
+    if not user.requires_email_verification and not user.email_verified:
+        user.email_verified = True
+        user.save(update_fields=["email_verified"])
+
     if user.two_factor_enabled:
         return {"message": "2FA required", "user_id": user.id}, status.HTTP_200_OK
-    
 
     if not user.can_login():
         return {"error": "Access denied"}, 403
 
     return _finalize_login(request, user)
-
-
-   
 
 
 def logout_user(*, user, refresh_token):
