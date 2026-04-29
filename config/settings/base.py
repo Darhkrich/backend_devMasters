@@ -115,7 +115,6 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "apps.core.middleware.RequestTracingMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "apps.security.middleware.BlockIPMiddleware",
     "apps.security.middleware.SecurityHeadersMiddleware",
     "apps.audit.middleware.AuditRequestMiddleware",
@@ -125,13 +124,27 @@ MIDDLEWARE = [
     "apps.core.middleware.GlobalExceptionMiddleware",
     "apps.core.middleware.CoepMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-
 ]
 ROOT_URLCONF = 'config.urls'
 
+# --------------------------------------------------------------------
+# CORS_ALLOWED_ORIGINS – safe parsing to avoid corsheaders.E014 errors
+# --------------------------------------------------------------------
+_cors_raw = env("CORS_ALLOWED_ORIGINS", default="")
+_cors_from_env = []
+if _cors_raw:
+    # Split on commas, strip whitespace, and remove any trailing slashes
+    _cors_from_env = [
+        origin.strip().rstrip("/")
+        for origin in _cors_raw.split(",")
+        if origin.strip()
+    ]
+
 CORS_ALLOWED_ORIGINS = _unique_preserving_order(
-    env_list("CORS_ALLOWED_ORIGINS", default="") + FRONTEND_ORIGINS
+    _cors_from_env + FRONTEND_ORIGINS
 )
+# --------------------------------------------------------------------
+
 CORS_ALLOWED_ORIGIN_REGEXES = env_list("CORS_ALLOWED_ORIGIN_REGEXES", default="")
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ["X-CSRFToken"]
