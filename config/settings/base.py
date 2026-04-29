@@ -9,6 +9,18 @@ from config.env import env, env_bool, env_int, env_list
 
 load_dotenv()
 
+
+def _unique_preserving_order(values):
+    seen = set()
+    ordered = []
+    for value in values:
+        normalized = (value or "").strip()
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        ordered.append(normalized)
+    return ordered
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 APP_ENV = env("APP_ENV", default="development").strip().lower()
 DEBUG = env_bool("DEBUG", default=APP_ENV in {"development", "dev"})
@@ -19,6 +31,11 @@ ALLOWED_HOSTS = env_list(
     default="localhost,127.0.0.1" if DEBUG else "",
 )
 FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:3000")
+ADDITIONAL_FRONTEND_URLS = env_list("ADDITIONAL_FRONTEND_URLS", default="")
+LOCAL_FRONTEND_URLS = ["http://localhost:3000", "http://127.0.0.1:3000"] if DEBUG else []
+FRONTEND_ORIGINS = _unique_preserving_order(
+    [FRONTEND_URL, *ADDITIONAL_FRONTEND_URLS, *LOCAL_FRONTEND_URLS]
+)
 AUTH_COOKIE_DOMAIN = env("AUTH_COOKIE_DOMAIN", default="").strip() or None
 AUTH_COOKIE_PATH = env("AUTH_COOKIE_PATH", default="/").strip() or "/"
 AUTH_COOKIE_SAMESITE = env(
@@ -112,15 +129,14 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = 'config.urls'
 
-CORS_ALLOWED_ORIGINS = env_list(
-    "CORS_ALLOWED_ORIGINS",
-    default=f"{FRONTEND_URL},http://localhost:3000,http://127.0.0.1:3000",
+CORS_ALLOWED_ORIGINS = _unique_preserving_order(
+    env_list("CORS_ALLOWED_ORIGINS", default="") + FRONTEND_ORIGINS
 )
+CORS_ALLOWED_ORIGIN_REGEXES = env_list("CORS_ALLOWED_ORIGIN_REGEXES", default="")
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ["X-CSRFToken"]
-CSRF_TRUSTED_ORIGINS = env_list(
-    "CSRF_TRUSTED_ORIGINS",
-    default=",".join(CORS_ALLOWED_ORIGINS),
+CSRF_TRUSTED_ORIGINS = _unique_preserving_order(
+    env_list("CSRF_TRUSTED_ORIGINS", default="") + FRONTEND_ORIGINS
 )
 
 SESSION_COOKIE_DOMAIN = env("SESSION_COOKIE_DOMAIN", default="").strip() or None

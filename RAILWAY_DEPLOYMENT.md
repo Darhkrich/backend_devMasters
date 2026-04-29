@@ -10,14 +10,28 @@ For a Railway frontend at `https://your-frontend.up.railway.app`, set:
 APP_ENV=production
 DEBUG=False
 FRONTEND_URL=https://your-frontend.up.railway.app
-CORS_ALLOWED_ORIGINS=https://your-frontend.up.railway.app
-CSRF_TRUSTED_ORIGINS=https://your-frontend.up.railway.app
 AUTH_COOKIE_SAMESITE=None
 AUTH_COOKIE_SECURE=True
 SESSION_COOKIE_SAMESITE=None
 SESSION_COOKIE_SECURE=True
 CSRF_COOKIE_SAMESITE=None
 CSRF_COOKIE_SECURE=True
+```
+
+If you have more than one frontend using this backend, add them as a comma-separated list:
+
+```env
+ADDITIONAL_FRONTEND_URLS=https://your-superadmin.vercel.app
+CORS_ALLOWED_ORIGINS=https://your-frontend.up.railway.app,https://your-superadmin.vercel.app
+CSRF_TRUSTED_ORIGINS=https://your-frontend.up.railway.app,https://your-superadmin.vercel.app
+```
+
+For your current superuser dashboard deployment, the extra origin is:
+
+```env
+ADDITIONAL_FRONTEND_URLS=https://new-dashboard-n65w.vercel.app
+CORS_ALLOWED_ORIGINS=https://your-main-frontend-domain,https://new-dashboard-n65w.vercel.app
+CSRF_TRUSTED_ORIGINS=https://your-main-frontend-domain,https://new-dashboard-n65w.vercel.app
 ```
 
 Leave `AUTH_COOKIE_DOMAIN`, `SESSION_COOKIE_DOMAIN`, and `CSRF_COOKIE_DOMAIN` blank unless you are intentionally sharing cookies across subdomains on the same parent domain.
@@ -55,4 +69,4 @@ The Docker image sets `APP_ENV=production` by default and runs:
 2. `python manage.py ensure_superuser`
 3. `gunicorn config.wsgi:application --bind 0.0.0.0:$PORT`
 
-If you change either Railway URL or add a custom domain later, update `FRONTEND_URL`, `CORS_ALLOWED_ORIGINS`, and `CSRF_TRUSTED_ORIGINS` to the exact new frontend origin before testing login again.
+If you change either Railway URL or add a custom domain later, update `FRONTEND_URL`, `ADDITIONAL_FRONTEND_URLS`, `CORS_ALLOWED_ORIGINS`, and `CSRF_TRUSTED_ORIGINS` to the exact new frontend origins before testing login again.
