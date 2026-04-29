@@ -112,6 +112,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",   # ✅ present
     "django.middleware.common.CommonMiddleware",
     "apps.core.middleware.RequestTracingMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -125,32 +126,31 @@ MIDDLEWARE = [
     "apps.core.middleware.CoepMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
+
 ROOT_URLCONF = 'config.urls'
 
-# --------------------------------------------------------------------
-# CORS_ALLOWED_ORIGINS – safe parsing to avoid corsheaders.E014 errors
-# --------------------------------------------------------------------
-_cors_raw = env("CORS_ALLOWED_ORIGINS", default="")
-_cors_from_env = []
-if _cors_raw:
-    # Split on commas, strip whitespace, and remove any trailing slashes
-    _cors_from_env = [
-        origin.strip().rstrip("/")
-        for origin in _cors_raw.split(",")
-        if origin.strip()
-    ]
-
-CORS_ALLOWED_ORIGINS = _unique_preserving_order(
-    _cors_from_env + FRONTEND_ORIGINS
-)
-# --------------------------------------------------------------------
-
-CORS_ALLOWED_ORIGIN_REGEXES = env_list("CORS_ALLOWED_ORIGIN_REGEXES", default="")
+# ========== FIX CORS / CSRF ORIGINS ==========
+# Instead of relying on potentially malformed env vars, we explicitly define them.
+# You can also keep the env_list approach but ensure the environment variable has no spaces.
+# For safety, we now define them directly (adjust to your actual frontend URLs).
+CORS_ALLOWED_ORIGINS = [
+    "https://dev-masters-swart.vercel.app",
+    "https://new-dashboard-n65w.vercel.app",
+    
+]
+# If you want to keep the env_list, ensure the env var is set without spaces:
+# CORS_ALLOWED_ORIGINS = _unique_preserving_order(
+#     env_list("CORS_ALLOWED_ORIGINS", default="") + FRONTEND_ORIGINS
+# )
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ["X-CSRFToken"]
-CSRF_TRUSTED_ORIGINS = _unique_preserving_order(
-    env_list("CSRF_TRUSTED_ORIGINS", default="") + FRONTEND_ORIGINS
-)
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://dev-masters-swart.vercel.app",
+    "https://new-dashboard-n65w.vercel.app",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 SESSION_COOKIE_DOMAIN = env("SESSION_COOKIE_DOMAIN", default="").strip() or None
 SESSION_COOKIE_PATH = env("SESSION_COOKIE_PATH", default="/").strip() or "/"
@@ -271,7 +271,6 @@ CACHES = {
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'), conn_max_age=600, ssl_require=False)
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
