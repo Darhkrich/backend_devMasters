@@ -134,7 +134,7 @@ ROOT_URLCONF = 'config.urls'
 # You can also keep the env_list approach but ensure the environment variable has no spaces.
 # For safety, we now define them directly (adjust to your actual frontend URLs).
 CORS_ALLOWED_ORIGINS = [
-    "https://www.devmasters.tech/",
+    "https://www.devmasters.tech",
     "https://new-dashboard-n65w.vercel.app",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
