@@ -83,20 +83,23 @@ class MeView(APIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+        response = Response(serializer.data)
+        return set_csrf_cookie(response, request)
 
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response(UserProfileSerializer(request.user).data)
+        response = Response(UserProfileSerializer(request.user).data)
+        return set_csrf_cookie(response, request)
 
     def patch(self, request):
         serializer = UserProfileSerializer(request.user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+        response = Response(serializer.data)
+        return set_csrf_cookie(response, request)
 
     def delete(self, request):
         payload, status_code = delete_account(request.user)

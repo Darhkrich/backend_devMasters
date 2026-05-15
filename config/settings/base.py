@@ -1,6 +1,7 @@
 from datetime import timedelta
 import os
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import dj_database_url
 from dotenv import load_dotenv
@@ -21,6 +22,40 @@ def _unique_preserving_order(values):
         ordered.append(normalized)
     return ordered
 
+
+def _flatten_origin_values(values):
+    for value in values:
+        if value is None:
+            continue
+        if isinstance(value, (list, tuple, set)):
+            yield from _flatten_origin_values(value)
+            continue
+        for part in str(value).split(","):
+            normalized = part.strip()
+            if normalized:
+                yield normalized
+
+
+def _normalize_origin(value):
+    raw = str(value or "").strip().strip("\"'").rstrip("/")
+    if not raw:
+        return ""
+    if "://" not in raw:
+        return ""
+
+    parsed = urlsplit(raw)
+    if not parsed.scheme or not parsed.netloc:
+        return ""
+
+    return f"{parsed.scheme}://{parsed.netloc}"
+
+
+def _collect_origins(*sources):
+    return _unique_preserving_order(
+        _normalize_origin(value)
+        for value in _flatten_origin_values(sources)
+    )
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 APP_ENV = env("APP_ENV", default="development").strip().lower()
 DEBUG = env_bool("DEBUG", default=APP_ENV in {"development", "dev"})
@@ -30,11 +65,18 @@ ALLOWED_HOSTS = env_list(
     "ALLOWED_HOSTS",
     default="localhost,127.0.0.1" if DEBUG else "",
 )
-FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:3000")
-ADDITIONAL_FRONTEND_URLS = env_list("ADDITIONAL_FRONTEND_URLS", default="")
+FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:3000" if DEBUG else "")
+ADDITIONAL_FRONTEND_URLS = env("ADDITIONAL_FRONTEND_URLS", default="")
+KNOWN_FRONTEND_URLS = env(
+    "KNOWN_FRONTEND_URLS",
+    default="" if DEBUG else "https://www.devmasters.tech,https://devmasters.tech,https://new-dashboard-n65w.vercel.app",
+)
 LOCAL_FRONTEND_URLS = ["http://localhost:3000", "http://127.0.0.1:3000"] if DEBUG else []
-FRONTEND_ORIGINS = _unique_preserving_order(
-    [FRONTEND_URL, *ADDITIONAL_FRONTEND_URLS, *LOCAL_FRONTEND_URLS]
+FRONTEND_ORIGINS = _collect_origins(
+    FRONTEND_URL,
+    ADDITIONAL_FRONTEND_URLS,
+    KNOWN_FRONTEND_URLS,
+    LOCAL_FRONTEND_URLS,
 )
 AUTH_COOKIE_DOMAIN = env("AUTH_COOKIE_DOMAIN", default="").strip() or None
 AUTH_COOKIE_PATH = env("AUTH_COOKIE_PATH", default="/").strip() or "/"
@@ -128,31 +170,18 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-
-# ========== FIX CORS / CSRF ORIGINS ==========
-# Instead of relying on potentially malformed env vars, we explicitly define them.
-# You can also keep the env_list approach but ensure the environment variable has no spaces.
-# For safety, we now define them directly (adjust to your actual frontend URLs).
-CORS_ALLOWED_ORIGINS = [
-    "https://www.devmasters.tech",
-    "https://devmasters.tech",
-    "https://new-dashboard-n65w.vercel.app",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-# If you want to keep the env_list, ensure the env var is set without spaces:
-# CORS_ALLOWED_ORIGINS = _unique_preserving_order(
-#     env_list("CORS_ALLOWED_ORIGINS", default="") + FRONTEND_ORIGINS
-# )
+CORS_ALLOWED_ORIGINS = _collect_origins(
+    env("CORS_ALLOWED_ORIGINS", default=""),
+    FRONTEND_ORIGINS,
+)
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ["X-CSRFToken"]
+CORS_ALLOWED_ORIGIN_REGEXES = env_list("CORS_ALLOWED_ORIGIN_REGEXES", default="")
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://dev-masters-swart.vercel.app",
-    "https://new-dashboard-n65w.vercel.app",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+CSRF_TRUSTED_ORIGINS = _collect_origins(
+    env("CSRF_TRUSTED_ORIGINS", default=""),
+    FRONTEND_ORIGINS,
+)
 
 SESSION_COOKIE_DOMAIN = env("SESSION_COOKIE_DOMAIN", default="").strip() or None
 SESSION_COOKIE_PATH = env("SESSION_COOKIE_PATH", default="/").strip() or "/"

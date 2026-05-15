@@ -14,6 +14,9 @@ class CookieJWTAuthentication(BaseAuthentication):
         self.jwt_authentication = JWTAuthentication()
 
     def authenticate(self, request):
+        if self._has_bearer_authorization(request):
+            return None
+
         access_token = request.COOKIES.get("access_token")
         if not access_token:
             return None
@@ -36,7 +39,14 @@ class CookieJWTAuthentication(BaseAuthentication):
     def authenticate_header(self, request):
         return "Bearer"
 
+    def _has_bearer_authorization(self, request):
+        auth_header = request.META.get("HTTP_AUTHORIZATION", "")
+        return auth_header.lower().startswith("bearer ")
+
     def _enforce_csrf(self, request):
+        if request.method in {"GET", "HEAD", "OPTIONS", "TRACE"}:
+            return
+
         check = CsrfViewMiddleware(lambda req: None)
         check.process_request(request)
         reason = check.process_view(request, None, (), {})

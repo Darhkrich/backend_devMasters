@@ -318,8 +318,11 @@ class CustomTokenRefreshView(TokenRefreshView):
     serializer_class = TokenRefreshSerializer
 
     def post(self, request, *args, **kwargs):
-        refresh_token = request.data.get("refresh") or request.COOKIES.get("refresh_token")
-        if request.COOKIES.get("refresh_token"):
+        body_refresh_token = request.data.get("refresh")
+        cookie_refresh_token = request.COOKIES.get("refresh_token")
+        refresh_token = body_refresh_token or cookie_refresh_token
+
+        if cookie_refresh_token and not body_refresh_token:
             csrf_failure = _enforce_csrf(request)
             if csrf_failure is not None:
                 return csrf_failure
